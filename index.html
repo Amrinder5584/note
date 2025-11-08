@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pooja, You Are Beautiful! 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@500;700&family=Indie+Flower&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Quicksand', Arial, sans-serif;
+      background: linear-gradient(123deg, #fff0f6 0%, #eafffa 100%);
+      margin:0; padding:0;
+      overflow:hidden;
+      min-height:100vh;
+    }
+    .magic-bg {
+      position:fixed;
+      top:0; left:0;
+      width:100vw; height:100vh;
+      z-index:1;
+      pointer-events:none;
+    }
+    .container {
+      max-width:476px;
+      margin:65px auto 0 auto;
+      background:rgba(255,255,255,0.97);
+      border-radius:32px;
+      box-shadow:0 10px 45px #e7548044;
+      padding:50px 20px 36px 20px;
+      text-align:center;
+      position:relative;
+      z-index:3;
+      animation:fadeInUp 1.4s cubic-bezier(.45,.09,.67,.98);
+    }
+    @keyframes fadeInUp { from { opacity:0; transform:translateY(90px);} to {opacity:1; transform:translateY(0);} }
+    h1 {
+      font-family: 'Pacifico', cursive;
+      color:#e75480;
+      font-size:2.7em;
+      margin-bottom:12px;
+      margin-top:-7px;
+      text-shadow:0 2px 16px #f4aecb4a;
+      letter-spacing:2px;
+      animation:fadeIn 1.3s;
+    }
+    h2 {
+      font-family:'Indie Flower',cursive;
+      color:#fc8c3a;
+      font-size:1.2em;
+      margin-top:0; margin-bottom:23px;
+      animation:fadeIn 1.2s;
+    }
+    .magic-btn, .magic-btn-big {
+      background:linear-gradient(90deg,#e75480 0%, #fae7ca 100%);
+      color:#fff; border:none; border-radius:13px;
+      font-size:1.09em; font-weight:600;
+      cursor:pointer; position:relative;
+      padding:14px 32px;
+      box-shadow:0 4px 24px #e7548025;
+      margin-bottom:22px;
+      transition:background .23s,transform .13s;
+    }
+    .magic-btn:hover, .magic-btn-big:hover {background:linear-gradient(90deg,#fae7ca 0%, #e75480 100%);color:#e75480;transform:scale(1.08);}
+    .magic-btn-big {
+      font-size:1.23em;
+      padding:16px 44px;
+      margin:32px auto 14px auto;
+    }
+    .envelope {
+      margin:33px auto 14px auto;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      cursor:pointer;
+    }
+    .envelope-graphic {
+      width:90px; height:62px;
+      position:relative;
+      filter:drop-shadow(0 4px 22px #fae7ca20);
+      transition:transform .44s;
+    }
+    .envelope.open .envelope-graphic { transform:translateY(-19px) scale(1.08);}
+    .letter {
+      background: #fff2fe;
+      color: #c361b5;
+      border-radius: 10px;
+      font-family: 'Indie Flower', cursive;
+      font-size: 1.22em;
+      padding:22px 17px;
+      box-shadow:0 1px 13px #a8265642;
+      max-width:290px;
+      margin:18px auto 0 auto;
+      opacity:0;
+      transition:opacity .69s;
+      font-weight:bold;
+    }
+    .envelope.open .letter { opacity:1;}
+    .story-btn {
+      margin-top:32px;
+      background:#c1f7e3;
+      color:#217062;
+      font-size:1.11em;
+      padding:12px 38px;
+      border-radius:9px;
+      border:none;
+      cursor:pointer;
+      display:none;
+      font-family:'Pacifico',cursive;
+      font-weight:bold;
+      box-shadow:0 1px 9px #a8265642;
+    }
+    .story-btn.visible {
+      display: inline-block;
+    }
+    .confetti {
+      display:none;
+      position:fixed;
+      top:0; left:0;
+      width:100vw;height:100vh;
+      z-index:999;
+      pointer-events:none;
+      animation:popIn 2s;
+    }
+    .mirror {
+      background:linear-gradient(135deg,#fff0f6 60%,#fc8c3a 130%);
+      border:7px solid #e75480; 
+      border-radius:100px;
+      width:180px;height:180px;
+      margin:auto;box-shadow:0 4px 34px #fc8c3a45;
+      cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      position:relative;overflow:hidden;
+    }
+    .mirror-msg {
+      display:none;font-family:'Indie Flower',cursive;color:#e75480;font-size:1.17em;font-weight:bold;position:absolute;top:160px;width:100%;text-align:center;
+    }
+    /* Love card styles */
+    #loveCard {
+      font-family:'Indie Flower',cursive;
+      font-size:1.27em;background:#ffdeee;color:#e75480;border-radius:17px;box-shadow:0 4px 22px #fc8c3a30;padding:22px 20px;max-width:320px;margin:15px auto 24px auto;transition:all .34s;
+    }
+    .emoji-row {
+      display:flex;flex-direction:row;justify-content:center;gap:13px;margin:22px auto 0 auto;font-size:2em;
+    }
+    .mascot {
+      width:110px; margin:4px auto 12px auto;
+      animation:popIn 1s cubic-bezier(.7,-.23,.39,1.18) both;
+      cursor:pointer;
+    }
+    @keyframes popIn {0%{opacity:0;transform:scale(.7);}90%{opacity:1;transform:scale(1.15);}100%{transform:scale(1);}}
+    /* Responsive */
+    @media(max-width:650px){
+      .container{max-width:98vw;}
+      .mascot{width:83px;}
+      .envelope-graphic{width:64px;height:41px;}
+      .mirror{width:90vw;height:90vw;min-width:120px;}
+    }
+  </style>
+</head>
+<body>
+  <canvas class="magic-bg" id="magicBg"></canvas>
+  <div class="confetti" id="confetti"></div>
+
+  <!-- ACT 1: Fairy Tale Opening and Mascot -->
+  <div class="container" id="act1">
+    <div class="mascot" id="mascot">
+      <!-- Animated cute bunny face -->
+      <svg width="110" height="120" viewBox="0 0 110 120" fill="none">
+        <ellipse cx="55" cy="98" rx="38" ry="17" fill="#fae7ca"/>
+        <ellipse cx="44" cy="44.5" rx="17" ry="22.5" fill="#fff0f6"/>
+        <ellipse cx="66" cy="44.5" rx="17" ry="22.5" fill="#fff0f6"/>
+        <ellipse id="mascotHead" cx="55" cy="65" rx="28" ry="29" fill="#fff0f6" stroke="#e75480" stroke-width="3"/>
+        <ellipse id="mascotEyeL" cx="45" cy="76" rx="8" ry="8" fill="#494ca2"/>
+        <ellipse id="mascotEyeR" cx="65" cy="76" rx="8" ry="8" fill="#494ca2"/>
+        <ellipse id="mascotCheekL" cx="44" cy="86" rx="3" ry="1.7" fill="#fae7ca"/>
+        <ellipse id="mascotCheekR" cx="66" cy="86" rx="3" ry="1.7" fill="#fae7ca"/>
+        <!-- Smile -->
+        <ellipse id="mascotSmile" cx="55" cy="89" rx="13" ry="7" fill="#ffb6d7"/>
+        <!-- Cute fringe hairstyle (edit as you wish!) -->
+        <ellipse cx="55" cy="54" rx="13" ry="7" fill="#f4aecb"/>
+      </svg>
+    </div>
+    <h1>Pooja, You Are Magic! 🌸</h1>
+    <h2>Welcome to your enchanted page.<br>Tap below for a magical love letter! ✨</h2>
+    <button class="magic-btn-big" onclick="showEnvelopeAct()">💌 Open Love Letter</button>
+    <div class="emoji-row">😊💕🥰🌸😍</div>
+  </div>
+  
+  <!-- ACT 2: Love Letter Envelope (click to open) -->
+  <div class="container" id="act2" style="display:none;">
+    <div class="envelope" id="envelope" onclick="openEnvelope()">
+      <div class="envelope-graphic" id="envelopeGraphic">
+        <svg width="90px" height="62px" viewBox="0 0 90 62" fill="none">
+          <rect width="90" height="62" rx="13" fill="#fcd9ea"/>
+          <polygon points="0,0 45,46 90,0" fill="#ffb6d7"/>
+        </svg>
+      </div>
+      <div class="letter" id="letter" style="opacity:0;">
+        Dear Pooja,<br>
+        You are beautiful, precious, and so, so loved.<br>
+        Never compare yourself, for you shine in your own magical way!<br>
+        You make my life shine. <br>
+        I hope this brings you happy tears. ❤️
+      </div>
+    </div>
+    <button class="story-btn" id="nextMagicBtn" onclick="showMirrorAct()">Next Magic ➡️</button>
+  </div>
+
+  <!-- ... (rest remains unchanged!) ... -->
+  <!-- ACT 3: Interactive Mirror of Beauty -->
+  <div class="container" id="act3" style="display:none;">
+    <h1 style="font-family:Pacifico,cursive;color:#e75480;">Mirror of Beauty ✨</h1>
+    <p style="font-family:'Indie Flower',cursive;color:#c361b5;font-size:1.17em;">
+      Click the mirror to see what true beauty looks like, Pooja!
+    </p>
+    <div id="mirrorBox" style="margin:30px auto 18px auto;position:relative;width:200px;height:220px;">
+      <div class="mirror" id="mirror" onclick="revealMirror()" >
+        <!-- Animated cartoon face -->
+        <svg id="mirrorFace" width="120" height="120" viewBox="0 0 110 110">
+          <ellipse cx="55" cy="65" rx="33" ry="33" fill="#fff0f6" stroke="#e75480" stroke-width="3"/>
+          <ellipse id="faceLeftEye" cx="43" cy="70" rx="8" ry="8" fill="#494ca2"/>
+          <ellipse id="faceRightEye" cx="67" cy="70" rx="8" ry="8" fill="#494ca2"/>
+          <ellipse cx="55" cy="85" rx="12" ry="7" fill="#ffb6d7"/>
+          <ellipse cx="55" cy="80" rx="3" ry="1.6" fill="#e75480"/>
+          <ellipse cx="60" cy="70" rx="4" ry="2" fill="#ee5a66"/>
+          <ellipse cx="50" cy="70" rx="4" ry="2" fill="#ee5a66"/>
+          <ellipse cx="42" cy="90" rx="4" ry="2" fill="#fae7ca"/>
+          <ellipse cx="68" cy="90" rx="4" ry="2" fill="#fae7ca"/>
+          <ellipse cx="55" cy="54" rx="11" ry="6" fill="#f4aecb"/>
+        </svg>
+      </div>
+      <div class="mirror-msg" id="mirrorMsg">This is true beauty—<br>Pooja's beauty! 💖</div>
+    </div>
+    <button class="magic-btn" onclick="showLoveCardsAct()">Next: Why I Love You ➡️</button>
+  </div>
+
+  <!-- ACT 4: Swipeable Love Card Gallery -->
+  <div class="container" id="act4" style="display:none;">
+    <h1 style="font-family:Pacifico,cursive;color:#fc8c3a;">Why I Love You, Pooja 💌</h1>
+    <div id="loveCardBox" style="position:relative;margin:auto;min-height:150px;">
+      <div id="loveCard"></div>
+      <button class="magic-btn" onclick="nextLoveCard()">Next Reason ➡️</button>
+    </div>
+    <button class="magic-btn" onclick="showMascotAct()">Next: Talk to Mascot ➡️</button>
+  </div>
+
+  <!-- ACT 5: Mascot Chat Fun -->
+  <div class="container" id="act5" style="display:none;">
+    <h1 style="font-family:Pacifico,cursive;color:#c361b5;">Hi, I'm your Happy Mascot! 🐰</h1>
+    <p style="font-family:'Indie Flower',cursive;color:#fc8c3a;font-size:1.18em;">Click me for surprise faces & messages!</p>
+    <div class="mascot" id="talkingMascot">
+      <svg id="mascotSVG" width="110" height="120" viewBox="0 0 110 120">
+        <ellipse cx="55" cy="98" rx="38" ry="17" fill="#fae7ca"/>
+        <ellipse cx="44" cy="44.5" rx="17" ry="22.5" fill="#fff0f6"/>
+        <ellipse cx="66" cy="44.5" rx="17" ry="22.5" fill="#fff0f6"/>
+        <ellipse id="mascotHead" cx="55" cy="65" rx="28" ry="29" fill="#fff0f6" stroke="#e75480" stroke-width="3"/>
+        <ellipse id="mascotEyeL" cx="45" cy="76" rx="8" ry="8" fill="#494ca2"/>
+        <ellipse id="mascotEyeR" cx="65" cy="76" rx="8" ry="8" fill="#494ca2"/>
+        <ellipse id="mascotCheekL" cx="44" cy="86" rx="3" ry="1.7" fill="#fae7ca"/>
+        <ellipse id="mascotCheekR" cx="66" cy="86" rx="3" ry="1.7" fill="#fae7ca"/>
+        <ellipse id="mascotSmile" cx="55" cy="89" rx="13" ry="7" fill="#ffb6d7"/>
+        <ellipse cx="55" cy="54" rx="13" ry="7" fill="#f4aecb"/>
+      </svg>
+      <div id="mascotBubble" style="min-height:42px;font-family:'Indie Flower',cursive;color:#e75480;font-size:1.13em;margin-top:10px;transition:opacity .22s;"></div>
+    </div>
+    <button class="magic-btn" onclick="showFinale()">HUG ME 💗</button>
+  </div>
+
+  <!-- Finale: Magical Digital Hug -->
+  <div class="container" id="finale" style="display:none;">
+    <h1 style="font-family:Pacifico,cursive;color:#e75480;">A big magical hug for Pooja! 🤗💖</h1>
+    <p style="font-family:'Indie Flower',cursive;color:#fc8c3a;font-size:1.25em;">
+      You are loved. You are beautiful.<br>
+      Never, ever forget it!<br>
+      <span style="font-size:2em;">🌈 😊 💖</span>
+    </p>
+    <button onclick="window.location.reload()" class="magic-btn-big">
+      ✨ See the Magic Again!
+    </button>
+  </div>
+
+  <!-- Background Music -->
+  <audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/audio/2022/10/16/audio_12f3033eb7.mp3" type="audio/mp3">
+  </audio>
+  <button class="magic-btn" style="position:fixed;top:17px;right:23px;z-index:1003;" id="musicBtn" onclick="toggleMusic()">Play Happy Music 🎶</button>
+
+  <script>
+    // Magic BG: Sparkling stars & hearts
+    const canvas = document.getElementById('magicBg');
+    const ctx = canvas.getContext('2d');
+    let stars=[],hearts=[];
+    function resizeCanvas(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+    resizeCanvas();window.addEventListener('resize',resizeCanvas);
+    function spawnStar(){const x=Math.random()*canvas.width, y=Math.random()*canvas.height, r=2+Math.random()*2, c="#fc8c3a";stars.push({x,y,r,c,twinkle:0.1+Math.random()*0.7});}
+    function spawnHeart(){const x=Math.random()*canvas.width, y=canvas.height+30, s=12+Math.random()*8, c=["#e75480","#fae7ca","#ffdeee","#c361b5"][Math.floor(Math.random()*4)];hearts.push({x,y,s,c,dy:0.4+Math.random()*1.9});}
+    function animateBg(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      if(stars.length<72)spawnStar();
+      if(hearts.length<28)spawnHeart();
+      for(let st of stars){
+        ctx.globalAlpha=.92+Math.sin(Date.now()*0.0008)*st.twinkle;
+        ctx.beginPath();ctx.arc(st.x,st.y,st.r,0,2*Math.PI);
+        ctx.fillStyle=st.c;ctx.fill();
+      }
+      for(let h of hearts){
+        h.y-=h.dy;
+        ctx.globalAlpha=.67;
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(h.x,h.y);
+        ctx.bezierCurveTo(h.x+h.s/2,h.y-h.s/2,h.x+h.s*1.5,h.y+h.s/3,h.x,h.y+h.s);
+        ctx.bezierCurveTo(h.x-h.s*1.5,h.y+h.s/3,h.x-h.s/2,h.y-h.s/2,h.x,h.y);
+        ctx.fillStyle=h.c;ctx.fill();ctx.restore();
+      }
+      hearts=hearts.filter(h=>h.y>-22);
+      requestAnimationFrame(animateBg);
+    }
+    animateBg();
+
+    // Music control
+    const musicBtn = document.getElementById('musicBtn');
+    const bgMusic = document.getElementById('bgMusic');
+    let musicPlaying = false;
+    function toggleMusic() {
+      if(!musicPlaying) {
+        bgMusic.play();
+        musicBtn.textContent="Pause Happy Music 🎶";
+      } else {
+        bgMusic.pause();
+        musicBtn.textContent="Play Happy Music 🎶";
+      }
+      musicPlaying = !musicPlaying;
+    }
+
+    // Confetti function
+    function burstConfetti(n) {
+      const confDiv=document.getElementById("confetti");confDiv.style.display='block';
+      confDiv.innerHTML='';
+      for(let i=0;i<n;i++){
+        let el=document.createElement("div");
+        el.style.position="absolute";
+        el.style.left=(Math.random()*98+1)+'vw';
+        el.style.top=(Math.random()*88+8)+'vh';
+        el.style.width=el.style.height=(6+Math.random()*8)+"px";
+        el.style.backgroundColor=["#e75480","#fae7ca","#fc8c3a","#c361b5"][Math.floor(Math.random()*4)];
+        el.style.borderRadius="999px";
+        el.style.opacity=Math.random()*0.5+0.5;
+        confDiv.appendChild(el);
+      }
+      setTimeout(()=>{confDiv.style.display='none';},2100);
+    }
+
+    // ACT 1: Fairy Tale Opener
+    function showEnvelopeAct() {
+      document.getElementById("act1").style.display="none";
+      document.getElementById("act2").style.display="block";
+    }
+
+    // ACT 2: Envelope/Letter—now click to open!
+    let envelopeIsOpen = false;
+    function openEnvelope() {
+      if (!envelopeIsOpen) {
+        document.getElementById("envelope").classList.add("open");
+        document.getElementById("envelopeGraphic").classList.add("open");
+        setTimeout(() => {
+          document.getElementById("letter").style.opacity = 1;
+          document.getElementById("nextMagicBtn").classList.add("visible");
+        }, 700);
+        envelopeIsOpen = true;
+      }
+    }
+
+    // ACT 2: To next act
+    function showMirrorAct() {
+      burstConfetti(60);
+      document.getElementById("act2").style.display="none";
+      document.getElementById("act3").style.display="block";
+    }
+
+    // ACT 3: Mirror -> Love Card Deck
+    let mirrorClicked = false;
+    function revealMirror() {
+      document.getElementById('mirrorMsg').style.display='block';
+      if(!mirrorClicked){
+        burstConfetti(44);
+        mirrorClicked = true;
+      }
+      // Animate mirror face (blink and blush)
+      document.getElementById('faceLeftEye').setAttribute('ry','5');
+      document.getElementById('faceRightEye').setAttribute('ry','5');
+      setTimeout(function(){
+        document.getElementById('faceLeftEye').setAttribute('ry','8');
+        document.getElementById('faceRightEye').setAttribute('ry','8');
+      },900);
+      // Pop sound
+      let ctxx=new(window.AudioContext||window.webkitAudioContext)();
+      let o=ctxx.createOscillator();
+      o.type='triangle'; o.frequency.setValueAtTime(1040,ctxx.currentTime);
+      o.frequency.linearRampToValueAtTime(220,ctxx.currentTime+.33);
+      o.connect(ctxx.destination); o.start(); setTimeout(()=>o.stop(),333);
+    }
+    function showLoveCardsAct() {
+      burstConfetti(33);
+      document.getElementById("act3").style.display="none";
+      document.getElementById("act4").style.display="block";
+      nextLoveCard();
+    }
+
+    // ACT 4: Love Card Gallery
+    const loveReasons=[
+      "Your smile can cure any sadness 💕",
+      "You always make my heart race 👀",
+      "You're more beautiful than the stars ⭐",
+      "Your laugh makes everything better 😍",
+      "You are fearlessly unique",
+      "You're my favorite everything 🌸",
+      "No one compares to your elegance",
+      "Honestly, you're art 🖌️",
+      "You make every moment a memory 💗"
+    ]; let lr=0;
+    function nextLoveCard(){
+      document.getElementById('loveCard').textContent=loveReasons[lr];
+      lr=(lr+1)%loveReasons.length;
+      burstConfetti(22);
+    }
+    function showMascotAct() {
+      burstConfetti(38);
+      document.getElementById("act4").style.display="none";
+      document.getElementById("act5").style.display="block";
+      mascotTalk();
+    }
+
+    // ACT 5: Mascot chat, animates
+    const mascotLines=[
+      "Pooja, you're extra cute today!",
+      "Did you smile? The room is brighter!",
+      "Never stop believing in your beauty.",
+      "Hey gorgeous! Blinking just for you~ 😉",
+      "Here's a bunny hug! 🤗",
+      "Sundar forever. Pinky promise!"
+    ]; let ml=0;
+    function mascotTalk(){
+      // Mascot winks and blushes
+      document.getElementById('mascotEyeL').setAttribute('rx','5');
+      document.getElementById('mascotEyeR').setAttribute('rx','10');
+      document.getElementById('mascotCheekL').setAttribute('rx','5');
+      document.getElementById('mascotCheekR').setAttribute('rx','7');
+      setTimeout(function(){
+        document.getElementById('mascotEyeL').setAttribute('rx','8');
+        document.getElementById('mascotEyeR').setAttribute('rx','8');
+        document.getElementById('mascotCheekL').setAttribute('rx','3');
+        document.getElementById('mascotCheekR').setAttribute('rx','3');
+      },800);
+      document.getElementById('mascotBubble').textContent=mascotLines[ml];
+      ml=(ml+1)%mascotLines.length;
+      burstConfetti(18);
+    }
+    document.getElementById('talkingMascot').onclick=mascotTalk;
+    function showFinale(){
+      burstConfetti(75);
+      document.getElementById("act5").style.display="none";
+      document.getElementById("finale").style.display="block";
+    }
+  </script>
+</body>
+</html>
